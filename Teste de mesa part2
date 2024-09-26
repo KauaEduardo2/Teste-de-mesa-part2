@@ -1,0 +1,278 @@
+Problema 1:
+
+using System;
+
+namespace test_de_mesa_pt2_p1
+{
+        public class Rendimento
+        {
+            public float taxa;
+
+            public float ValorP;
+
+            public int Periodo;
+
+
+
+            public Rendimento(float ValorP, float taxa, int Periodo)
+            {
+
+                this.taxa = taxa / 100;
+                this.ValorP = ValorP;
+                this.Periodo = Periodo;
+
+            }
+
+            public float CalcularRendimnto()
+            {
+                float rendimento = ValorP * (float)Math.Pow((1 + taxa), Periodo);
+                return rendimento;
+            }
+            public void Resolucao()
+            {
+                float rendimentoFinal = CalcularRendimnto();
+                Console.WriteLine("Seu rendimento em {0} meses foi de R${1:F2}", Periodo, rendimentoFinal);
+            }
+
+        }
+        public class Program
+        {
+            public static void Main()
+            {
+                Console.WriteLine("----------------- BANK --------------------\n");
+                Console.WriteLine("Digite o valor Presente: ");
+                float valorPresente = float.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o valor da taxa mensal(em %): ");
+                float taxa = float.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o tempo em meses:");
+                int periodo = int.Parse(Console.ReadLine());
+                Rendimento j1 = new Rendimento(valorPresente, taxa, periodo);
+                j1.Resolucao();
+
+            }
+
+        }
+}
+
+Problema 2:
+
+using System;
+
+namespace teste_de_mesa_pt2_p2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int valorP = 3800;
+            double taxa = 1.25 / 100;
+            int cont = 1;
+            float rend_acumu = 3847.50F;
+            Console.WriteLine("Rendimento de R$3800 em 6 meses com uma taxa de 2% a.m\n");
+            while (cont <= 6)
+            {
+                
+                Console.WriteLine("{0}° mês\n", cont);
+                Console.WriteLine("------------------------------------------------\n");
+                float rendimento = valorP * (float)Math.Pow((1 + taxa), cont);
+                Console.WriteLine("Seu rendimento no {0}° mês foi de: {1}\n", cont, rendimento);
+                float rend_liquida = (valorP * (float)Math.Pow((1 + taxa), cont) - valorP);
+                Console.WriteLine("O rendimento liquido do {0}° mês foi de: {1:F2}\n", cont, rend_liquida);
+                if(cont == 1)
+                {
+                    Console.WriteLine("A renda acumulada {0}° mês é igual a: {1:F2}\n", cont, rendimento);
+                }
+                else
+                {
+                    rend_acumu = rend_acumu + rend_liquida;
+                    Console.WriteLine("A renda acumulada {0}° mês é igual a: {1:F2}", cont, rend_acumu);
+                }
+               
+                Console.WriteLine("------------------------------------------------\n");
+               
+                cont++;
+
+            }
+
+        }
+    }
+
+}
+
+Problema 4:
+
+using System;
+
+
+namespace teste_de_mesa_pt2_p2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            float saldo = 0; ;
+            float rendimento2;
+            float rendimento;
+            float valorP = 2000;
+            float taxa = 2 / 100F;
+            int cont = 0;
+            float rend_acumu = 2000.00F;
+            Console.WriteLine("Rendimento de R$2000 em 6 meses com uma taxa de 2% a.m\n");
+            while (cont <= 5)
+            {
+
+                Console.WriteLine("{0}° mês\n", cont);
+                Console.WriteLine("------------------------------------------------\n");
+                rendimento = valorP * (float)Math.Pow((1 + taxa), cont);
+                Console.WriteLine("Seu rendimento no {0}° mês foi de: {1}\n", cont, rendimento);
+                float rend_liquida = (valorP * (float)Math.Pow((1 + taxa), cont) - valorP);
+                Console.WriteLine("O rendimento liquido do {0}° mês foi de: {1:F2}\n", cont, rend_liquida);
+                if (cont == 0)
+                {
+                    Console.WriteLine("A renda acumulada {0}° mês é igual a: {1:F2}\n", cont, rendimento);
+                }
+                else
+                {
+                    rend_acumu = rendimento;
+                    Console.WriteLine("A renda acumulada {0}° mês é igual a: {1:F2}", cont, rend_acumu);
+                }
+                Console.WriteLine("------------------------------------------------\n");
+                cont++;
+
+            }
+            cont -= 1;
+            if (cont == 5)
+            {
+                Console.WriteLine("------------------------------------------------\n");
+                Console.WriteLine("Quando você deseja sacar? Seu rendimento atual R${0}", rend_acumu);
+                float saque = float.Parse(Console.ReadLine());
+                rend_acumu = rend_acumu - saque;
+                saldo = rend_acumu;
+                Console.WriteLine("\nSeu saldo após  saque realizado: {0}\n", saldo);
+                valorP = rend_acumu;                cont = 1; saldo = 0;
+                while (cont <= 2)
+                {
+                    Console.WriteLine("{0}° mês\n", cont);
+                    Console.WriteLine("------------------------------------------------\n");
+                    
+                    rendimento2 = valorP * (float)Math.Pow((1 + taxa), cont);
+                    Console.WriteLine("Seu rendimento no {0}° mês foi de: {1}\n", cont, rendimento2);
+                    float rend_liquida2 = (valorP * (float)Math.Pow((1 + taxa), cont) - valorP);
+                    Console.WriteLine("O rendimento liquido do {0}° mês foi de: {1:F2}\n", cont, rend_liquida2);
+                    rend_acumu = rendimento2;
+                    Console.WriteLine("A renda acumulada {0}° mês é igual a: {1:F2}\n", cont, rend_acumu);
+                    cont++;
+                    saldo = rendimento2;
+                }
+                Console.WriteLine("------------------------------------------------\n");
+                Console.WriteLine("\nSeu saldo final foi de: {0}\n", saldo);
+
+            }
+        }
+
+    }
+}
+
+Problema 3 e 5:
+
+using System;
+
+namespace Teste_de_mesa_part2
+{
+    public class Emprestimo
+    {
+        public float taxa;
+
+        public int Periodo;
+
+        public float valorF;
+
+
+        public Emprestimo(float valorF, float taxa, int Periodo)
+        {
+            this.valorF = valorF;
+            this.taxa = taxa / 100;
+            this.Periodo = Periodo;
+           
+        }
+        public float CalcularValorFuturo()
+        {
+            float valorP =  valorF / (float)Math.Pow((1 + taxa), Periodo);
+            return valorP;
+        }
+        public void ResolucaoEmprestimo()
+        {
+            float emprestimoFinal = CalcularValorFuturo();
+            Console.WriteLine("Seu valor de emprestimo sera de: {0:F2}", emprestimoFinal);
+        }
+            
+
+    }
+    public class Rendimento
+    {
+        public float taxa;
+
+        public float ValorP;
+
+        public int Periodo;
+
+        
+
+         public Rendimento(float ValorP, float taxa, int Periodo)
+        {
+           
+            this.taxa = taxa/100;
+            this.ValorP= ValorP;
+            this.Periodo = Periodo;
+            
+        }
+
+        public float CalcularRendimnto()
+        {
+            float rendimento = ValorP * (float)Math.Pow((1 + taxa), Periodo);
+            return rendimento;
+        }
+        public void Resolucao()
+        {
+            float rendimentoFinal = CalcularRendimnto();
+            Console.WriteLine("Seu rendimento em {0} meses foi de R${1:F2}", Periodo, rendimentoFinal);
+        }
+
+    }
+    public class Program
+    {
+        public static void Main()
+        {
+            Console.WriteLine("----------------- BANK --------------------\n");
+            Console.WriteLine("1 - Rendimento\n2 - Emprestimo\n");
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine("\nEscolha uma opção do banco: ");
+            int op = int.Parse(Console.ReadLine());
+            if (op == 1){
+                Console.WriteLine("Digite o valor Presente: ");
+                float valorPresente = float.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o valor da taxa mensal(em %): ");
+                float taxa = float.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o tempo em meses:");
+                int periodo = int.Parse(Console.ReadLine());
+                Rendimento j1 = new Rendimento(valorPresente, taxa, periodo);
+                j1.Resolucao();
+            }
+            else if(op == 2) {
+                Console.WriteLine("Digite o valor futuro desejado: ");
+                float valorFuturo = float.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o valor da taxa mensal(em %): ");
+                float taxa = float.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o tempo em meses:");
+                int periodo = int.Parse(Console.ReadLine());
+                Emprestimo j2 = new Emprestimo(valorFuturo, taxa, periodo);
+                j2.ResolucaoEmprestimo();
+            }
+            else{
+                Console.WriteLine("Opção Invalida!!");
+            }
+           
+        }
+    }
+}
+
